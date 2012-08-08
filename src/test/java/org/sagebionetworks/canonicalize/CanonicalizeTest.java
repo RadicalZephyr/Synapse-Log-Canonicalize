@@ -5,14 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple Canonicalize.
  */
-public class AppTest {
+public class CanonicalizeTest {
     /**
      * Rigourous Test :-)
      */
 	@Test
-    public void testApp() {
+    public void testCanonicalize() {
         assertTrue( true );
     }
 }

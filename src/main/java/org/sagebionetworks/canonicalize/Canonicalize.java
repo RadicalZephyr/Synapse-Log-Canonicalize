@@ -4,7 +4,7 @@ package org.sagebionetworks.canonicalize;
  * Hello world!
  *
  */
-public class App 
+public class Canonicalize 
 {
     public static void main( String[] args )
     {
