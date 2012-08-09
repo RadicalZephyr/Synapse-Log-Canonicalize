@@ -1,6 +1,6 @@
-package org.sagebionetworks.canonicalize;
+package org.sagebionetworks.usagemetrics.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -11,9 +11,10 @@ import java.util.Map.Entry;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
-import org.junit.*;
+import org.junit.Test;
+import org.sagebionetworks.canonicalize.SynapseEvent;
 
-public class SynapseEventTest {
+public class SynapseLoggingUtilsTest {
 
 	@Test
 	public void testParseSynapseEvent() throws UnsupportedEncodingException {
@@ -34,7 +35,7 @@ public class SynapseEventTest {
 		propMap.put("entityId", "syn114138");
 		propMap.put("request",
 				"org.sagebionetworks.authutil.ModParamHttpServletRequest@5cba727");
-
+		propMap.put("header", "header=%7Bsessiontoken%3D%5B0BMBOTJ7Wvvhz0Y4d1RMnw00%5D%2C+content-type%3D%5Bapplication%2Fjson%5D%2C+accept%3D%5Bapplication%2Fjson%5D%2C+content-length%3D%5B92%5D%2C+host%3D%5Blocalhost%3A8080%5D%2C+connection%3D%5BKeep-Alive%5D%7D");
 		for (Entry<String, String> entry : propMap.entrySet()) {
 			builder.append("&");
 			builder.append(entry.getKey());
@@ -43,9 +44,9 @@ public class SynapseEventTest {
 		}
 
 		String line = builder.toString();
-		SynapseEvent event = new SynapseEvent(line);
+		SynapseEvent event = SynapseLoggingUtils.parseSynapseEvent(line);
 
-		DateTimeFormatter dateFormatter = SynapseEvent.getDateformatter();
+		DateTimeFormatter dateFormatter = SynapseLoggingUtils.DATE_FORMATTER;
 		DateTime time = dateFormatter.parseDateTime(timeStamp);
 
 		assertEquals(time, event.getTimeStamp());
@@ -57,4 +58,5 @@ public class SynapseEventTest {
 			assertEquals(propMap.get(key), URLDecoder.decode(event.getProperties().get(key), "UTF-8"));
 		}
 	}
+
 }
