@@ -13,6 +13,6 @@ public class CanonicalizeTest {
      */
 	@Test
     public void testCanonicalize() {
-        assertTrue( true );
+        
     }
 }
